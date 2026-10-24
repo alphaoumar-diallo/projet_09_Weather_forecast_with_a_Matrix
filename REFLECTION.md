@@ -1,9 +1,7 @@
 # Reflection
 
 ## Who did what
-We wrote the code together as a group, during the same working sessions.
-Everyone took part in writing and testing `next_day` and `after_days`,
-and we all discussed the answers to the Think and Extra questions.
+We wrote the code together, during the same working sessions. Everyone took part in writing and testing next_day and after_days, and we all discussed the answers to the Think and Extra questions.
 - Alpha Oumar Diallo
 - Joel Bocovo
 - Guemsu Badje Grace Sonia
@@ -14,32 +12,15 @@ and we all discussed the answers to the Think and Extra questions.
 ## One bug we had
 The problems I encountered:
 
- 1. I had difficulty figuring out how to write the function that determines tomorrow's distribution based on today's distribution. After several unsuccessful attempts, I adjusted my function to match the expression provided by the lecturer. 
-
-2. Two of my initial results did not match [0.72, 0.28] instead, they were [0.220000000000000, 0.28] which was incorrect, as the sum did not equal 1. To fix this, I simply separated the code for tasks 1 and 2 from the code for tasks 3 and 4; the results are now correct. 
-
-3. I assumed that the user should have the freedom to provide the matrix P themselves, so I wanted to create a function that verifies that P is a non-empty, square matrix and that the sum of each distribution equals 1 (within a tolerance of TOLERANCE=1e-9), ensuring that a forecast can be made.
-
-4. At first, it was hard for me to understand the distribution formula that the teacher gave us. But after some time, I understood it.
-
-5. Then, I was confused by this result with many digits after the decimal point: [0.7200000000000002, 0.28]
-I thought the formula was wrong. But after some research, I found that the formula was correct. The computer cannot store decimal numbers exactly, so it keeps a very small error. To get the expected result, I used the round() function to round the numbers to two decimal places.
-
-6. Also, it was hard for me to understand why the distribution stops changing after many days. In the end, I understood that every day, the matrix mixes the distribution a little. After a few days, the weather of the first day is forgotten. The distribution becomes stable at a value that depends only on the matrix, not on the start.
-
-7. For the Extra part of the project, with the given matrix, if it is sunny today, it rains tomorrow for sure (100%). If it rains today, it is sunny tomorrow for sure (100%). The weather must change every day: it is a 2-day cycle. There is no mixing, so the start is never forgotten and the numbers never stop changing.
-
-8. While we were modifying `next_day`, I made an
-indentation mistake: I put `return new` at the level of the `for i` loop
-instead of the `for j` loop, so it was inside the loop over `j`.
-
-9. The function returned too early, after computing only the first column.
-We got the right first value but 0 for the second one, for example
-`[0.8, 0.0]` instead of `[0.8, 0.2]`.
+ While modifying next_day, we made an indentation mistake: return new was placed at the level of the for i loop instead of after the for j loop, so it ended up inside the loop over j. The function therefore returned too early, after computing only the first column. We got the right first value but 0 for the second one, for example [0.8, 0.0] instead of [0.8, 0.2].
 
 ## How we fixed it
-We compared our output with the expected results in the test cell and saw
-that the second value was always 0. We understood that the function was
-returning before the loop over `j` was finished. I moved `return new` to
-the same level as `for j`, after both loops, and then all the results
-matched the expected ones.
+We compared our output with the expected results in the test cell and noticed that the second value was always 0. This told us that the function was returning before the loop over j had finished. We moved return new to the same level as for j, after both loops, and all the results then matched the expected ones.
+
+##Other difficulties and what we learned
+1.	Understanding and writing the distribution formula. At first, the formula given by the lecturer was hard to understand, and our first attempts at writing next_day failed. Once we understood that tomorrow's distribution is obtained by combining today's distribution with the columns of the matrix, we rewrote the function to match the lecturer's expression.
+	2.	Results that did not sum to 1. Some of our initial results did not match the expected [0.72, 0.28], and their sum was not equal to 1. The cause was that the code for tasks 1 and 2 and the code for tasks 3 and 4 were mixed in the same cells. Separating them gave correct results.
+	3.	Many digits after the decimal point. We also got results such as [0.7200000000000002, 0.28] and first thought the formula was wrong. After some research, we learned that computers cannot store most decimal numbers exactly, so a tiny error remains. The formula was correct, and we used round() to two decimal places to display the expected result.
+	4.	Validating the matrix. Since the user should be free to provide their own matrix P, we wrote a function that checks that P is non-empty and square, and that each distribution sums to 1 (within a tolerance TOLERANCE = 1e-9). This ensures that a forecast can be made.
+	5.	Why the distribution stops changing. It was hard to see why the distribution becomes stable after many days. Every day, the matrix mixes the distribution a little more, so after a few days the weather of the first day is forgotten. The distribution converges to a value that depends only on the matrix, not on the starting point.
+	6.	The Extra part: a case without convergence. With the given matrix, if it is sunny today it rains tomorrow for sure (100%), and if it rains today it is sunny tomorrow for sure (100%). The weather must change every day, so it is a 2-day cycle. There is no mixing, so the start is never forgotten and the numbers never stop changing. This is the opposite of point 5.
