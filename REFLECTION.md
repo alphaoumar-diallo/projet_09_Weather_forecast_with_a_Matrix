@@ -4,11 +4,12 @@
 We wrote the code together as a group, during the same working sessions.
 Everyone took part in writing and testing `next_day` and `after_days`,
 and we all discussed the answers to the Think and Extra questions.
-- Joel:
-- Grace:
-- Pape Moussa Diouf:
-- Awa:
-- Alpha Oumar Diallo:
+- Alpha Oumar Diallo
+- Joel Bocovo
+- Guemsu Badje Grace Sonia
+- Pape Moussa Diouf
+- Awa Thioub
+
 
 ## One bug we had
 The problems I encountered:
